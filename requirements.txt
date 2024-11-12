@@ -1,0 +1,4 @@
+dlt
+dlt[postgres]>=1.0.0
+dbt-core
+dbt-postgres

@@ -1,0 +1,21 @@
+name: 'bike_analytics'
+version: '1.0.0'
+profile: 'bikes'
+
+model-paths: ["models"]
+test-paths: ["tests"]
+macro-paths: ["macros"]
+
+clean-targets:       
+  - "target"
+  - "dbt_packages"
+
+
+models:
+  bike_analytics:
+    # Config indicated by + and applies to all files under models/example/
+    staging:
+      +schema: staging
+    production:
+      +schema: prod_analytics
+      +materialized: table

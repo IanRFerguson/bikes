@@ -1,0 +1,22 @@
+bikes:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: localhost
+      user: dev
+      password: kane
+      port: 5432
+      dbname: nyc
+      schema: dbt
+      threads: 4
+
+    prod:
+      type: postgres
+      host: postgres
+      user: dev
+      password: kane
+      port: 5432
+      dbname: nyc
+      schema: dbt
+      threads: 4

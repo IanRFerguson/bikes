@@ -1,0 +1,5 @@
+version: 2
+
+models:
+  - name: stg__bikes
+    description: This model sources raw data from Postgres and adds useful metadata

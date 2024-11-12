@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: raw_bikes
+    database: nyc
+    schema: raw_citi_bike_nyc
+    tables:
+      - name: networks_bay_wheels
+      - name: networks_citi_bike_nyc
+      - name: networks_divvy

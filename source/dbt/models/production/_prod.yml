@@ -1,0 +1,5 @@
+version: 2
+
+models:
+  - name: prd__bikes
+    description: Production models used for analysis

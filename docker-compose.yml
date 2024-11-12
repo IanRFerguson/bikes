@@ -1,0 +1,32 @@
+services:
+  bikes:
+    build:
+      dockerfile: deploy/Dockerfile
+    env_file:
+      - local.env
+    volumes:
+      - .:/app
+    links:
+      - "postgres:database"
+    networks:
+      - analytics
+  
+  postgres:
+    container_name: postgres
+    image: postgres:latest
+    hostname: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: dev
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+      POSTGRES_DB: nyc
+    restart: unless-stopped
+    env_file:
+      - local.env
+    networks:
+      - analytics
+
+networks:
+  analytics:
+    name: analytics-network
