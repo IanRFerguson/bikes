@@ -33,7 +33,7 @@ def run_dbt_pipeline():
     os.chdir(_dbt_project_path)
 
     # Run dbt as subprocess
-    command = "dbt build -s +prd__bikes"
+    command = "dbt build -s +path:models/production"
 
     if stage == "prod":
         command += " -t prod"
