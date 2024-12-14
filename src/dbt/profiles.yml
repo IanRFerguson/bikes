@@ -4,8 +4,8 @@ bikes:
     dev:
       type: postgres
       host: localhost
-      user: dev
-      password: kane
+      user: bikes
+      password: "{{ env_var('DBT_PG_PASSWORD') }}"
       port: 5432
       dbname: nyc
       schema: dbt
@@ -14,8 +14,8 @@ bikes:
     prod:
       type: postgres
       host: postgres
-      user: dev
-      password: kane
+      user: postgres
+      password: "{{ env_var('DBT_PG_PASSWORD') }}"
       port: 5432
       dbname: nyc
       schema: dbt
