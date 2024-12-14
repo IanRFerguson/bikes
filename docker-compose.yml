@@ -1,7 +1,7 @@
 services:
   bikes:
     build:
-      dockerfile: deploy/Dockerfile
+      dockerfile: ./deploy/Dockerfile.analytics
     env_file:
       - local.env
     volumes:
@@ -10,7 +10,7 @@ services:
       - "postgres:database"
     networks:
       - analytics
-  
+
   postgres:
     container_name: postgres
     image: postgres:latest
@@ -18,14 +18,16 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_USER: dev
-      POSTGRES_PASSWORD: ${PG_PASSWORD}
-      POSTGRES_DB: nyc
+      POSTGRES_PASSWORD: ${DBT_PG_PASSWORD}
     restart: unless-stopped
     env_file:
       - local.env
     networks:
       - analytics
+    entrypoint:
+      - ./deploy/run_pg_init.sh
+    build:
+      dockerfile: ./deploy/Dockerfile.postgres
 
 networks:
   analytics:
