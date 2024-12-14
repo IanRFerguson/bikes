@@ -6,5 +6,4 @@ COPY . .
 
 RUN pip install -r requirements.txt
 
-CMD [ "python", "source/python/run_analytics.py"]
-# CMD ["sleep", "infinity"]
+CMD [ "python", "src/python/run_analytics.py"]
