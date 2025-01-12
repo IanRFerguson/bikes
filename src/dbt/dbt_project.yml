@@ -17,5 +17,5 @@ models:
     staging:
       +schema: staging
     production:
-      +schema: prod_analytics
+      +schema: analytics
       +materialized: table
