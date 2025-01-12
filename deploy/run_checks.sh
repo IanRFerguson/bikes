@@ -8,8 +8,7 @@ RAISE=false
 # Check for secrets.toml
 if [[ ! -f $SECRETS_TARGET  ]]; then
     cp ./.dlt/secets.toml.template $SECRETS_TARGET
-    printf "\ndlt secrets.toml file created - fill this out before running!\n\n"
-    RAISE=true
+    printf "\nCreated secrets.toml file in .dlt folder...\n\n"
 fi
 
 # Check for local env file
