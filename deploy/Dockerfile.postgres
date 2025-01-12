@@ -1,3 +1,0 @@
-FROM library/postgres:latest
-
-COPY . .
