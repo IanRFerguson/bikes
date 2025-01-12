@@ -5,18 +5,18 @@ bikes:
       type: postgres
       host: localhost
       user: bikes
-      password: "{{ env_var('DBT_PG_PASSWORD') }}"
+      password: dev
       port: 5432
-      dbname: nyc
-      schema: dbt
+      dbname: analytics
+      schema: dbt_dev
       threads: 4
 
     prod:
       type: postgres
-      host: host.docker.internal
-      user: "{{ env_var('DBT_PG_USER') }}"
-      password: "{{ env_var('DBT_PG_PASSWORD') }}"
+      host: "{{ env_var('DBT_PG_HOST__PROD')}}"
+      user: "{{ env_var('DBT_PG_USER__PROD') }}"
+      password: "{{ env_var('DBT_PG_PASSWORD__PROD') }}"
       port: 5432
-      dbname: nyc
+      dbname: "{{ env_var('DBT_PG_DB__PROD') }}"
       schema: dbt
       threads: 4

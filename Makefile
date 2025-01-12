@@ -11,7 +11,7 @@ local:
 
 
 # Run the pipeline via Docker Compose
-dev:
+pipeline:
 	@echo "* Running pre-build checks..."
 	@./deploy/run_checks.sh
 	
@@ -21,3 +21,9 @@ dev:
 	else 							\
 		docker compose up; 			\
 	fi
+
+
+# Create the 
+setup:
+	@echo "* Running pre-build checks..."
+	@./deploy/run_checks.sh

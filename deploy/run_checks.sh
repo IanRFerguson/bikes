@@ -3,17 +3,18 @@
 set -e
 
 SECRETS_TARGET="./.dlt/secrets.toml"
+RAISE=false
 
 # Check for secrets.toml
 if [[ ! -f $SECRETS_TARGET  ]]; then
     cp ./.dlt/secets.toml.template $SECRETS_TARGET
     printf "\ndlt secrets.toml file created - fill this out before running!\n\n"
-    exit 1
+    RAISE=true
 fi
 
 # Check for local env file
 if [[ ! -f local.env ]]; then
-    touch local.env
+    cp ./local.env.template ./local.env
     printf "\nlocal.env file created - fill this out before running!\n\n"
-    exit 1
+    RAISE=true
 fi
