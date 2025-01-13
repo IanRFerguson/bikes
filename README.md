@@ -19,6 +19,8 @@ USER:       bikes
 PASSWORD:   dev
 ```
 
+This information is referenced in the [dlt secrets](./.dlt/secrets.toml) and the [dbt profile](src/dbt/profiles.yml).
+
 ### Running with Docker
-The pseudo-production version of this pipeline can be run with `make pipeline` - this requires the `local.env` file to be populated with database connection information (which is required in both the load and transform steps here).
+The pseudo-production version of this pipeline can be run with `make pipeline` - this requires the `local.env` file to be populated with database connection information (which is required in both the load and transform steps here). Note that the Postgres values in this file are dynamically reformatted in [the dlt pipeline](src/python/utilities/rest_api_pipeline.py) to match the naming convention that `dlt` expects.
 

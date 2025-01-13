@@ -2,6 +2,7 @@ import os
 import subprocess
 
 from utilities.logger import logger
+from utilities.setup_credentials import setup_credentials
 
 ##########
 
@@ -38,6 +39,7 @@ def run_dbt_pipeline():
 
     if STAGE == "prod":
         command += " -t prod"
+        setup_credentials(source="dbt")
 
     _run_status = subprocess.run(command, shell=True)
 
