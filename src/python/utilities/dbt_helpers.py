@@ -2,17 +2,20 @@ import os
 import subprocess
 
 from utilities.logger import logger
+from utilities.setup_credentials import setup_credentials
 
-#####
+##########
+
+STAGE = "prod" if os.environ.get("PROD") == "true" else "dev"
 
 
-def get_dbt_directory(stage: str):
+def get_dbt_directory():
     """
     Infer runtime directory for local vs. containerized runs
     """
 
-    if stage.lower() == "prod":
-        _dbt_project_path = "/app/source/dbt"
+    if STAGE == "prod":
+        _dbt_project_path = "/app/src/dbt"
     else:
         _current_directory_path = os.path.dirname(os.path.realpath(__file__))
         _dbt_project_path = os.path.abspath(
@@ -20,13 +23,12 @@ def get_dbt_directory(stage: str):
         )
 
     logger.info(f"Running dbt in {_dbt_project_path}...")
+
     return _dbt_project_path
 
 
 def run_dbt_pipeline():
-    # Use environment variables to infer where we're running dbt
-    stage = os.environ.get("STAGE", "dev")
-    _dbt_project_path = get_dbt_directory(stage=stage)
+    _dbt_project_path = get_dbt_directory()
 
     # Change working directory to dbt submodule
     # NOTE - Find a more ephemeral way to do this
@@ -35,10 +37,14 @@ def run_dbt_pipeline():
     # Run dbt as subprocess
     command = "dbt build -s +path:models/production"
 
-    if stage == "prod":
+    if STAGE == "prod":
         command += " -t prod"
+        setup_credentials(source="dbt")
 
-    # TODO - Raise exceptions
-    _ = subprocess.run(command, shell=True)
+    _run_status = subprocess.run(command, shell=True)
+
+    if _run_status.returncode != 0:
+        logger.error("FAILED TO RUN dbt")
+        raise RuntimeError(_run_status.returncode)
 
     logger.info("Succesfully rebuilt production tables")

@@ -1,13 +1,24 @@
 import dlt
+import os
 from dlt.sources.rest_api import rest_api_source
+from utilities.setup_credentials import setup_credentials
 from utilities.logger import logger
+
+##########
+
+
+if os.environ.get("PROD") == "true":
+    PIPELINE_NAME = "citi_bike_prod"
+    setup_credentials(source="dlt")
+else:
+    PIPELINE_NAME = "citi_bike_dev"
 
 
 def load_citi_bike_data():
     logger.info("Running CityBike API load into Postgres...")
 
     pipeline = dlt.pipeline(
-        pipeline_name="citi_bike",
+        pipeline_name=PIPELINE_NAME,
         destination="postgres",
         dataset_name="raw_citi_bike__nyc",
     )
@@ -37,6 +48,8 @@ def load_citi_bike_data():
     resp = pipeline.run(config)
     logger.info(resp)
 
+
+#####
 
 if __name__ == "__main__":
     load_citi_bike_data()
